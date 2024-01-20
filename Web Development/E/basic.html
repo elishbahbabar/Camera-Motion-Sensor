@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Camera Motion Sensor</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Ionicons CSS -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      padding-top: 56px;
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #sensorStatus {
+      margin-top: 20px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    #cameraDisplay {
+      border: 2px solid #007bff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .motion-detected {
+      color: #dc3545;
+    }
+
+    .idle {
+      color: #28a745;
+    }
+
+    .btn-custom {
+      border-radius: 12px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    .btn-custom:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Menu Styles */
+    .menu {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu ul li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .menu ul li a:hover {
+      color: #0056b3;
+    }
+
+    /* Social Media Icons Styles */
+    .social-icons {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .social-icons li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .social-icons a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 24px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .social-icons a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Motion Sensor</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container text-center">
+    <h1 class="mt-5">Camera Motion Sensor</h1>
+
+    <!-- Sensor Status -->
+    <div id="sensorStatus" class="alert font-weight-bold idle" role="alert">
+      Sensor Status: <span id="statusText">Idle</span>
+    </div>
+
+    <!-- Camera Display -->
+    <div id="cameraDisplay">
+      <!-- Your camera display content goes here -->
+      <p class="text-muted">Camera display content goes here...</p>
+    </div>
+
+    <!-- Bootstrap Buttons -->
+    <div class="mt-3">
+      <a class="btn btn-primary btn-custom" href="#" role="button" onclick="changeStatus('Motion Detected')">Link</a>
+      <button class="btn btn-primary btn-custom" type="button" onclick="changeStatus('Motion Detected')">Button</button>
+      <input class="btn btn-primary btn-custom" type="button" value="Input" onclick="changeStatus('Motion Detected')">
+      <input class="btn btn-primary btn-custom" type="submit" value="Submit" onclick="changeStatus('Motion Detected')">
+      <input class="btn btn-danger btn-custom" type="reset" value="Reset" onclick="changeStatus('Idle')">
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+      <ul>
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">ABOUT</a></li>
+        <li><a href="#">SERVICES</a></li>
+        <li><a href="#">DESIGN</a></li>
+        <li><a href="#">CONTACT</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Social Media Icons -->
+  <ul class="social-icons">
+    <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+    <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+    <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+    <li><a href="#"><ion-icon name="logo-google"></ion-icon></a></li>
+    <li><a href="#"><ion-icon name="logo-skype"></ion-icon></a></li>
+  </ul>
+
+  <!-- Bootstrap JS and jQuery (required for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Custom JavaScript for Camera Motion Sensor -->
+  <script>
+    function changeStatus(newStatus) {
+      // Update sensor status
+      const statusText = document.getElementById('statusText');
+      statusText.textContent = newStatus;
+      document.getElementById('sensorStatus').className = `alert font-weight-bold ${newStatus === 'Motion Detected' ? 'motion-detected' : 'idle'}`;
+
+      // Update camera display (you can replace this with your actual camera display logic)
+      const cameraDisplay = document.getElementById('cameraDisplay');
+      cameraDisplay.innerHTML = newStatus === 'Motion Detected' ? '<p class="text-danger">Motion detected! Display camera feed here...</p>' : '<p class="text-muted">Idle. No motion detected.</p>';
+    }
+
+    // Start motion sensor with an initial status when the page is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      changeStatus('Idle');
+    });
+  </script>
+</body>
+</html>
